@@ -40,7 +40,7 @@ moduleToFuel moduleMass = go moduleMass 0
 
 -- read the file and convert it to a list of strings using lines
 -- fmap to convert string to int and calcuelate the fuel needed for the module
--- sum the reulsts
+-- sum the results
 answerP2 :: IO Int
 answerP2 = sum . fmap (moduleToFuel.read) . lines <$> readFile inputfile
 
