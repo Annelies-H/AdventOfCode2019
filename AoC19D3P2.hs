@@ -14,11 +14,6 @@ type Parser = Parsec Void String
 
 data Direction = Up | Down | Lefty | Righty deriving (Show)
 
---
--- PROBLEMO
--- The results are currently higher then they should be
--- maybe a mistake in the counting of the steps?
---
 
 main :: IO ()
 main = do
@@ -41,11 +36,11 @@ test2W1 = "D:/AdventOfCode2019/inputFiles/D03_test2_W1.txt"
 test2W2 :: String
 test2W2 = "D:/AdventOfCode2019/inputFiles/D03_test2_W2.txt"
 inputW1 :: String
-inputW1= "D:/AdventOfCode2019/inputFiles/D03W1_input.txt"
+inputW1= "D:/code/haskell/AdventOfCode2019/inputFiles/D03W1_input.txt"
 inputW2 :: String
-inputW2 = "D:/AdventOfCode2019/inputFiles/D03W2_input.txt"
+inputW2 = "D:/code/haskell/AdventOfCode2019/inputFiles/D03W2_input.txt"
 
-
+-- code/haskell/
 
 
 
@@ -56,19 +51,19 @@ inputW2 = "D:/AdventOfCode2019/inputFiles/D03W2_input.txt"
       
 --get the coordinates the wire crosses from 1 given direction and point of origin
 directionToCoordinates :: (Int,Int) -> (Direction,Int) -> [(Int,Int)]
-directionToCoordinates (x,y) (Up, n)     = fmap (x,) $ reverse [y+1..y+n]
-directionToCoordinates (x,y) (Down, n)   = fmap (x,) [y-n..y-1] 
-directionToCoordinates (x,y) (Lefty, n)  = fmap (,y) [x-n..x-1]
-directionToCoordinates (x,y) (Righty, n) = fmap (,y) $ reverse [x+1..x+n] 
+directionToCoordinates (x,y) (Up, n)     = fmap (x,) [y+1..y+n]
+directionToCoordinates (x,y) (Down, n)   = fmap (x,) $ reverse [y-n..y-1] 
+directionToCoordinates (x,y) (Lefty, n)  = fmap (,y) $ reverse [x-n..x-1]
+directionToCoordinates (x,y) (Righty, n) = fmap (,y) [x+1..x+n] 
 
 --get the coordinates the wire crosses based on its point of origin and all given directions plus and previous coordinates
 --the origin is exlcuded!
 allDirectionsToCoordinates :: (Int,Int) -> [(Direction,Int)] -> [((Int,Int), Int)] 
 allDirectionsToCoordinates origin [] = [(origin,0)]
-allDirectionsToCoordinates origin directions = go origin directions 0 [] 
+allDirectionsToCoordinates origin directions = go origin directions 1 [] 
     where
       go _ [] _ coordinates = coordinates
-      go lastCoord ((x,y):xs) count coordinates = go (head newCoords) xs (count + y) ((zip newCoords [count..]) ++ coordinates)
+      go lastCoord ((x,y):xs) count coordinates = go (head $ reverse newCoords) xs (count + y) ((zip newCoords [count..]) ++ coordinates)
           where
             newCoords = (directionToCoordinates lastCoord (x,y)) 
       
