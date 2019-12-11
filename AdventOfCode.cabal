@@ -9,7 +9,7 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  exposed-modules:   AoC19D5
+  exposed-modules:   AoC19D7
   ghc-options:       -Wall -fwarn-tabs
   build-depends:     base >=4.7 && <5, containers, megaparsec, vector
   

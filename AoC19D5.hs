@@ -68,7 +68,7 @@ runOpCode1 program pointer instruction = program V.// [(param3 , param1 + param2
           | getMode 2 instruction == Immediate = program V.! (pointer+2)
         param3
           | getMode 3 instruction == Position = program V.! (pointer+3)
-          | getMode 3 instruction == Immediate = pointer+2
+          | getMode 3 instruction == Immediate = pointer+3
 
 --Opcode 2 takes the values of its first two parameters
 --mulitplies them and stores them at its third paramater
@@ -83,7 +83,7 @@ runOpCode2 program pointer instruction = program V.// [(param3 ,param1 * param2)
           | getMode 2 instruction == Immediate = program V.! (pointer+2)
         param3
           | getMode 3 instruction == Position = program V.! (pointer+3)
-          | getMode 3 instruction == Immediate = pointer+2       
+          | getMode 3 instruction == Immediate = pointer+3       
 
 --Opcode 3 takes an input value and stores it at its first parameter          
 runOpCode3 :: Vector Int -> Int -> [Int] -> Int -> Vector Int
